@@ -96,7 +96,7 @@ w.parent.bounds_(Rect(900, 570, 400, 200));
 (
 {
     var phase = Phasor.ar(0, LFNoise2.kr(0.5!2).exprange(0.04, 0.125) * SampleDur.ir, 0, 2pi);
-    0.1 * (99999999*LeakDC.ar(cos(phase) + cos(phase + pi)));
+    0.01 * (99999999*LeakDC.ar(cos(phase) + cos(phase + pi)));
 }.play;
 )
 
@@ -110,7 +110,7 @@ w.parent.bounds_(Rect(900, 570, 400, 200));
 (
 {
     var phase = Phasor.ar(0, LFNoise0.kr(0.5!2).exprange(0.0004, 0.00125) * SampleDur.ir, 0, 2pi);
-	0.1 * (99999999*LeakDC.ar(Median.ar(25,cos(phase) + cos(phase + pi))));
+	0.01 * (99999999*LeakDC.ar(Median.ar(25,cos(phase) + cos(phase + pi))));
 }.play;
 )
 
