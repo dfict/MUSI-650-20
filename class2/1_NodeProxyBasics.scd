@@ -108,7 +108,7 @@ x.release;  // and off  without completely losing the thing.
 	};
 )
 
-~np.guil
+~np.gui
 
 
 ~np = NodeProxy.new.play.fadeTime_(0).source_(nil);
