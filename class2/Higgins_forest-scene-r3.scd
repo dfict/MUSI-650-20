@@ -159,6 +159,12 @@ SynthDef(\soloCricket, {
 }).add;
 )
 
+
+
+(x = Synth.new(\soloCricket, [\rate, 2]);
+x.set(\rate, 1);
+x.free)
+
 // ==========================================
 // 2. MASTER FOREST SEQUENCER
 // ==========================================
