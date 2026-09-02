@@ -1,0 +1,18 @@
+DIRECTIONS
+
+make program processor=m328p project=noise_disco_mixer_168_w_mono
+
+you could change the processor manually lik	e this or just
+
+use the right chip...168 and do it directly
+ make project=noise_disco_mixer_168_w_mono
+
+
+you can also use:
+
+avrdude -p m328p -c usbtiny -P usb -B 500 -F -v -e -U lfuse:w:0xFF:m -U hfuse:w:0xD9:m -U flash:w:your_hex_file.hex
+
+avrdude -p m328p -c usbtiny -P usb -B 500 -F -v -e -U lfuse:w:0xFF:m -U hfuse:w:0xD9:m -U flash:w:noise_disco_mixer_168_w_mono.hex
+
+try 
+make program project=noise_disco_mixer_168_w_mono

@@ -27,6 +27,14 @@ x.release;  // and off  without completely losing the thing.
 
 ~np = NodeProxy.new.play.fadeTime_(2).source_(nil); //is the same as above
 
+//another way you'll commonly see someone turn on a Node is like so:
+
+(
+~np = NodeProxy.audio(s,2).play;
+)
+
+//it's the same as above but specifically saying: turn on node, at AUDIO RATE, and make it stereo. so you can see you can route multichannel stuff at control rates over ProxySpace.
+
 
 ( ~np[1..10] =
 	{
