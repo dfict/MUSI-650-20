@@ -30,7 +30,7 @@ a.fadeTime = 1; // fadeTime specifies crossfade
 a.free //stop it
 a.play //start it
 a.scope //look at it
-s.scope //spectrally look at it. (note, just looking at the server)
+s.freqscope //spectrally look at it. (note, just looking at the server)
 
 
 
@@ -46,7 +46,7 @@ a.source = {
 	};
 )
 
-a.scope;
+a.play;
 
 //actually the version below has an OFFSET that i rather link that is more functional.
 (
@@ -75,7 +75,7 @@ a.source = {
 	};
 )
 
-
+a.play
 (
 a.source =
 { var ampMod, freqMod, kY, kX;
@@ -117,12 +117,12 @@ a.source =
 	kY = MouseY.kr(40, 8000, 0);
 	kX = MouseX.kr(0.1, 20, 0);
 	mod = SinOsc.ar(kX, 0, 1000, kY);
-	sig = Saw.ar(kX, 0.1); //try Impulse.ar too
+	sig = Impulse.ar(kX, 0.1); //try Impulse.ar too
 	RLPF.ar(sig, mod, 0.001);};
 )
 
 
-
+a.source=nil
 
 
 
@@ -160,6 +160,7 @@ a.source = {};
 
 // allocate buffer -----gotta do this if were using buffers!
 b = Buffer.alloc(s,44100,1);
+
 
 
 // Dust randomly triggers Decay to create an exponential

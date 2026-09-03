@@ -109,7 +109,7 @@
 }
 )
 
-Spec.add(\lofreq1, \lofreq);
+Spec.add(\lofreq1, \lofreq); //this line is really nice because it adds all the RANGE from lofreq to lofreq1
 
 
 
