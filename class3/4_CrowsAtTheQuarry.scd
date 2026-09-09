@@ -70,7 +70,7 @@
 
 
 (
-~crows[0..4] =
+~crows[0..10] =
 { |rhythm=10|
 	 //arguments could go here
 var s, z, y, crowthought, cackle, car;
