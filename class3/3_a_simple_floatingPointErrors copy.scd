@@ -23,9 +23,9 @@
 {(SinOsc.ar(440) + SinOsc.ar(-440))}.plot;
 {(SinOsc.ar(480) + SinOsc.ar(-480))}.plot;
 
-This doesn't:
+//This doesn't:
 {var p = LFSaw.ar(441).range(0, 2pi); sin(p)  + sin(p * -1)  }.plot
 
-So, I suspect these are artifacts of the UGen implementation.
+//so, these are artifacts of the UGen implementation.
 
 
