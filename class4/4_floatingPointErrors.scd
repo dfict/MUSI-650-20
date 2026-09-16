@@ -22,11 +22,6 @@
 //github.com/supercollider/sc3-plugins
 
 
-{0.1*(99999999*LeakDC.ar(SinOsc.ar(0.1)+SinOsc.ar(0.1+0.0000001,pi)))}.play;
-
-
-
-
 s.scope
 
 
@@ -46,7 +41,7 @@ s.scope
 	Limiter.ar(999999*LeakDC.ar(SawDPW.ar(pink, 0+(pi/2)) + SawDPW.ar(pink, pi+(pi/2))), 0.1)))}.play;
 
 
-{0.5*Median.ar(30, Limiter.ar(99999999*LeakDC.ar((SinOsc.ar(0.005) + SinOsc.ar(0.005, pi)), 0.05)))!2}.play;
+{0.5*Median.ar(30, Limiter.ar(99999999*LeakDC.ar((SinOsc.ar(0.005) + SinOsc.ar(0.005, pi)), 0.05)))!2}.play; //here's the cool one!
 
 {0.5*SVF.ar((Median.ar(10, Limiter.ar(999999*LeakDC.ar(LFPulse.ar(0.5) + LFPulse.ar(0.5, pi)), 0.6))), 800)!2}.play;
 
@@ -116,6 +111,17 @@ w = ~silentSine.gui;
 w.parent.alwaysOnTop_(true);
 w.parent.bounds_(Rect(900, 570, 400, 200));
 )
+
+//better implemented
+~silentSine.source = {|period=0.005|
+	var out, mod;
+	mod=period;
+	mod = LFNoise1.kr(period!2).exprange(0.01, 10.125);
+	out = Median.ar(30, Limiter.ar(99999999*LeakDC.ar((SinOsc.ar(mod) + SinOsc.ar(mod, pi)), 0.05)));
+	out=0.5*out;
+	out;
+};
+
 
 
 //sandbox
