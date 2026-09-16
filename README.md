@@ -1,7 +1,7 @@
 <b>Ramapo College of New Jersey</b>
 School of Contemporary Arts
 MUSI 650 - 20 : Creative Musical Coding
-Fall 2025
+Fall 2026
 Daniel Fishkin 
 Assistant Professor of Music (Production) 
 Office: H-108
