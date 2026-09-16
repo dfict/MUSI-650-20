@@ -15,18 +15,18 @@
 /* STEP 1:  Download sound files for audio playback from a folder named "audio"
 The folder needs to be in the same folder as this file.
 */
-s.waitForBoot({																	// guarantee the server is running
+(s.waitForBoot({																	// guarantee the server is running
 	~files = "audio/*".resolveRelative.pathMatch;			// find files in the folder "audio", which
 	~buffers = ~files.collect{ | f | Buffer.read(s, f) };	// load those sounds into  buffers on the server
 	s.boot;															// the server, of course,  needs to be running
-});
+}));
 
 
 //you can also create an empty array to hold your buffers
-~buffers = Array.new; //if for some reason the array isn't there
+~otherbuffers = Array.new; //if for some reason the array isn't there
 
 // Add buffers to the array directly
-~buffers = ~buffers.add(Buffer.read(s, "addfilehere"));
+~otherbuffers = ~buffers.add(Buffer.read(s, "addfilehere"));
 //just keep adding files into the array, they each have different buf numbers
 
 
@@ -38,7 +38,7 @@ you select which sound to play as
 as in ~buffers[0] or ~buffers[1], etc
 */
 
-~buffers[2].play
+~buffers[1].play
 
 //set up a node...
 (~np = NodeProxy.audio(s,2).play;
@@ -126,7 +126,7 @@ as in ~buffers[0] or ~buffers[1], etc
 	var audio, rate;
 	rate = 8/({rrand(1, 24)} ! 10); // simple form of writing the array. !4 = 4.dup
 	rate.postln;
-	audio = PlayBuf.ar(1, bufnum: ~buffers[1], rate: rate, loop: 1);
+	audio = PlayBuf.ar(1, bufnum: ~buffers[~soundFileIndex], rate: rate, loop: 1);
 	Pan2.ar(audio, LFTri.kr(rate) );
 };
 )

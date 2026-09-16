@@ -1,7 +1,4 @@
 
-
-{(SinOsc.ar(441) + SinOsc.ar(-441))}.plot;
-
 //phase cancellation
 {0.1*(SinOsc.ar(400)-SinOsc.ar(400))}.play;
 {0.1*(SinOsc.ar(400)+SinOsc.ar(400,pi))}.play;
@@ -18,14 +15,16 @@
 
 // use plot so you don't need the whole scaling routine!
 //These show differing rounding errors:
-{(SinOsc.ar(441) + SinOsc.ar(-441))}.plot;
-
-{(SinOsc.ar(440) + SinOsc.ar(-440))}.plot;
-{(SinOsc.ar(480) + SinOsc.ar(-480))}.plot;
+{(SinOsc.ar(440) + SinOsc.ar(-440))}.plot; //uh oh!
+{(SinOsc.ar(480) + SinOsc.ar(-480))}.plot; //somethign is definitely up.
 
 //This doesn't:
 {var p = LFSaw.ar(441).range(0, 2pi); sin(p)  + sin(p * -1)  }.plot
 
 //so, these are artifacts of the UGen implementation.
+
+
+{(SinOsc.ar(MouseX.kr(400,420)) + SinOsc.ar(MouseX.kr(-400,-420)))}.plot;
+
 
 
