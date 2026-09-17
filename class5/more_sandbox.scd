@@ -1,4 +1,6 @@
-{Mix.ar(SinOsc.ar([440,400,600])*0.1)}.play
+{Mix.ar(SinOsc.ar([440,400,600,900,800])*0.1)}.play
+
+{SinOsc.ar([440,400,600,800,900])*0.1}.play
 
 
 {Mix.ar(SinOsc.ar(100*(5..8).asArray)*0.1)}.play

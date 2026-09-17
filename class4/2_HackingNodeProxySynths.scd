@@ -8,13 +8,13 @@
 s.waitForBoot({
 ~twine = NodeProxy.audio(s, 2);
 ~twine[0..6] = { |widefreq = 4.25, lo = 4, hi = 5, attack = 0.1, decay = 0.1 |
-	var a, f;
+	var aud, f;
 	lo = lo * exprand(1, 200);
 	hi = hi * exprand(1, 200);
 	f = LFClipNoise.kr(widefreq*rrand(0.1, 4.0)).range(lo, hi);
-	a = SinOsc.ar(f) * 0.1;
-	a = Linen.kr(abs(Slope.kr(f)), attack, 1, decay) * a;
-	a.dup;
+	aud = SinOsc.ar(f) * 0.1;
+	aud = Linen.kr(abs(Slope.kr(f)), attack, 1, decay) * aud;
+	aud.dup;
 };
 
 ~twine.play;
@@ -162,4 +162,3 @@ r = ~reverb.gui;
 r.parent.alwaysOnTop_(true);
 )
 
-)

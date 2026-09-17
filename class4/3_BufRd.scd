@@ -5,7 +5,7 @@ The folder needs to be in the same folder as this file.
 	~files = "audio/*".resolveRelative.pathMatch;			// find files in the folder "audio", which
 	~buffers = ~files.collect{ | f | Buffer.read(s, f) };	// load those sounds into  buffers on the server
 	s.boot;															// the server, of course,  needs to be running
-}));
+}))
 
 
 
@@ -24,18 +24,18 @@ as in ~buffers[0] or ~buffers[1], etc
 
 
 
-~buffers[5].play //test the player
+~buffers[~soundFileIndex].play //test the player
 
 
 //you have to evaluate these, or the subsequent code will fail.
-~soundFileIndex = 0;	// which sound file in the array ~buffers. use different numbers to select files.
-                         //above the number of files won't work
-
+(~soundFileIndex = 8;	// which sound file in the array ~buffers. use different numbers to select files.
+                        //above the number of files won't work
+~numChannels=2;
 
 ~dj = NodeProxy.new.play;
 
 ~dj = NodeProxy.new.play.fadeTime_(0).source_(nil); //is a shortcut to create the node with a fadeTime built in, with no sound in it.
-
+)
 
 (~dj[0] = {
     |amp=1, rate=1, lofreq=5|
@@ -53,7 +53,7 @@ as in ~buffers[0] or ~buffers[1], etc
 ~dj.set(\rate, 16.0);
 ~dj.setAt(0, \rate, 0.5)
 ~dj.source = nil
-~dj[0].play
+~dj.play
 
 //let's take a minute to talk about what's happening. we have some new variables.
 //sig is the soundfile buffer
@@ -68,12 +68,12 @@ as in ~buffers[0] or ~buffers[1], etc
 	var buf = ~buffers[~soundFileIndex];  // pick a sound file in the array with associated sound file number.
     start = 0; //start at zero
 	end = buf.numFrames-1; //read the buffer's total frames and then subtract 1 so it's just one sample before end
-//	rate = MouseX.kr(0.25, 5.0, 1.0); // maybe you want to control speed?
+	rate = MouseX.kr(0.25, 5.0, 1.0); // maybe you want to control speed?
 //	rate = [2, 3, 4, 5]/2;  //rate can be an expandable array for multiple buffers
 //	rate = 8/(8..16).asArray; //whoa!!
 //	rate=4/(3,5..9).asArray; // cool!
 //	rate = 2/[MouseX.kr(0.25, 5, 1), MouseX.kr(0.15, 4, 1), MouseX.kr(8, 0.1, 1),MouseX.kr(0.1, 3, 1)]; // how about four adjustable mouse rates
-//	rate = 0.125*(1,3..12).asArray; //the power of multichannel expansion!!!!!!!!
+	//rate = 0.125*(1,3..12).asArray; //the power of multichannel expansion!!!!!!!!
 	ptr = Phasor.ar(0, BufRateScale.kr(buf) * rate, start, end); // asaw wave that reads file from start to end.
     sig = BufRd.ar(~numChannels, buf, ptr); //the index is controlled by pointer
     sig = sig * amp;

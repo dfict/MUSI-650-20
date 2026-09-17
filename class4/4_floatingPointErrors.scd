@@ -92,12 +92,12 @@ Spec.add(\pink2Rate, ControlSpec(0.0499, 180.2001, 'lin', 0, 0.5));
 	detect = abs(HPZ1.ar(HPZ1.ar(out)));
 	out = Compander.ar(out, detect, 0.01, 1, 0, 0.00002, 0.003);
 };
-~pink2.gui
 
 
 
 //set up the templates
 s.scope
+
 p = ~pink1.gui;
 p.parent.alwaysOnTop_(true);
 p.parent.bounds_(Rect(900, 300, 400, 200)); // x, y, width, height
