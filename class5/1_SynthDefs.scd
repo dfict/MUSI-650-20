@@ -14,7 +14,7 @@
 )
 
 ~swirl.play
-~swirl.release
+~swirl.stop
 ~swirl.set(\freq, 60)
 
 //the more conventional way to do this with supercollider is using the structure of
@@ -40,12 +40,13 @@ SynthDef(\swirl, {|freq=50|
 
 x = Synth(\swirl, [\freq, 60]);
 x = Synth(\swirl, [\freq, 72]);
-x.release
+x.free
 x.set(\freq, 71)
 
 //the next habit we'll start getting into is adding an envelope to out sound.
 
 (
+s.freeAll;   // clear any old synths still hanging around
 SynthDef(\swirl, {|freq=100, gate=1| //you need "gate" here!
 	var out, out1, out2, env, lfo;
 	freq=freq;
@@ -53,18 +54,42 @@ SynthDef(\swirl, {|freq=100, gate=1| //you need "gate" here!
 	out1 = VarSaw.ar(freq, 0, lfo).range(0,0.1);
 	out2 = VarSaw.ar(freq*LFNoise1.kr(1).range(1.001, 1.015), 0, lfo).range(0,0.1);
 	out = out1+out2;
-	env = EnvGen.kr(Env.adsr(0.1, 0.1, 0.8, 0.1), gate, doneAction: 2); //here's the envelope
+	env = EnvGen.kr(Env.adsr(1.1, 0.1, 0.8, 0.1), gate, doneAction: 0); //here's the envelope. note, doneaction of 2 would free the synth, so this is important.
 	out = out*env; //and here's the AM modulation of the envelope with that signal.
 	Out.ar([0,1], out);
 }).add
 )
 
 
-x = Synth(\swirl, [\freq, 60]);
-x = Synth(\swirl, [\freq, 72]);
-x.release
-x.set(\freq, 71)
+// 2. PLAY: run these one line at a time
+x = Synth(\swirl);   // one synth, silent until gate = 1
+x.set(\gate, 1);              // note on (middle C)
+x.set(\freq, 72);             // change pitch while it's sounding
+x.set(\gate, 0);   .           // note off; the synth stays alive
+x.set(\freq, 200, \gate, 1);   // play again, no errors
+x.set(\gate, 0);
 
+(Pbind(\instrument, \swirl,
+	\freq, Prand([100,200,250,300,600,700,1000],inf),
+	\dur, Pbrown(0.125,1,0.125,inf),
+	\amp, Pwhite(0.1,9,inf)
+).play;)
+
+//use midinote argumment
+(Pbind(\instrument, \swirl,
+	\midinote, Prand([60,62,65,67,70,72,75],inf),
+	\dur, Pbrown(0.125,1,0.125,inf),
+	\legato, Pwhite(0.4,1.1,inf),
+	\amp, Pwhite(0.1,9,inf)
+).play;)
+
+//use note argument
+(Pbind(\instrument, \swirl,
+	\note, Prand([0, 2, 4, 5, 9, 12],inf),
+	\octave, Prand([4,4,5],inf),
+	\dur, Pbrown(0.125,1,0.125,inf)/4,
+	\amp, Pwhite(0.1,9,inf)
+).play;)
 
 (
 SynthDef(\behrman, {|freq=100, portamento=1.5, amp=0.1, pan=0, gate=1|
@@ -72,7 +97,7 @@ SynthDef(\behrman, {|freq=100, portamento=1.5, amp=0.1, pan=0, gate=1|
     freq = Lag.kr(freq, portamento);
     voice = Splay.ar(VarSaw.ar([freq, freq*1.5, freq*4, freq*6], 0, 0.5, amp));
     // ADSR envelope controlled by gate
-    env = EnvGen.kr(Env.adsr(0.1, 0.1, 0.8, 0.5), gate, doneAction: 2);
+    env = EnvGen.kr(Env.adsr(0.1, 0.1, 0.8, 0.5), gate, doneAction: 0);
     voice = voice * env;
     Out.ar(0, Pan2.ar(voice, pan));
 }).add;
@@ -80,11 +105,49 @@ SynthDef(\behrman, {|freq=100, portamento=1.5, amp=0.1, pan=0, gate=1|
 
 x = Synth(\behrman, [\freq, 400])
 
-x = Synth(\behrman, [\freq, 100])
+x = Synth(\behrman, [\freq, 200])
 
 x.set(\freq, 100)
 x.release
 
+(Pbind(\instrument, \behrman,
+	\freq, Prand([100, 75, 200, 400],inf),
+	\legato, 1.1,
+	\octave, 4,
+	\dur, Pbrown(0.5,3,0.5,inf)/2,
+	\amp, Pwhite(0.1, 0.5, inf)
+).play;)
+
+//or drive it with note
+(Pbind(\instrument, \behrman,
+	\freq, Prand([100, 75, 200, 400],inf),
+	\legato, 1.1,
+	\octave, 4,
+	\dur, Pbrown(0.5,3,0.5,inf)/2,
+	\amp, Pwhite(0.1, 0.5, inf)
+).play;)
+
+
+(
+Pmono(\behrman,
+	\freq, Prand([100, 200, 250, 300, 600, 700, 1000], inf),
+	\octave, 1,
+	\dur, Pbrown(1, 3, 0.25, inf),
+	\amp, Pwhite(0.1, 0.9, inf)
+).play;
+)
+
+//or explicitly driving the note argument instrad of octave
+(
+p = Pmono(\behrman,
+	\note, Prand([-12, -5, 0, 3, 7, 12], inf),
+	\portamento, Pseq([0, 0, 0, 1, 0, 0, 3],inf),
+	\octave, 4,          // 5 = normal, 4 = one down, 6 = one up
+	\dur, Pgauss(2, 0.75, inf), //gaussian takes the mean and the deviation around the mean
+	\legato, 1.1,
+	\amp, Pwhite(0.1, 0.9, inf)
+).play;
+)
 
 (
 SynthDef(\peaky,
