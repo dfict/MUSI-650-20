@@ -3,7 +3,7 @@ SCLOrkSynths.gui;
 (Pbind(\instrument, (Prand([\kalimba, \kik3, \snare1], inf)),
 	\note, Pseq([0, 4, 7], inf),
 	\octave, Pbrown(1, 4, 1, inf),
-	\amp, Pwhite(0.1,0.9),
+	\amp, Pwhite(0.1,0.4),
 	\dur, Prand([Pseq([0.1,0.1,0.1,0.1],1), 0.2, 0.3, 0.4], inf)).play;
 
 Pbind(\instrument, \sillyVoice,

@@ -6,4 +6,4 @@ it's basically like a mega-plug in library
 
 */
 
-SCLOrkSynths.gui;
+SCLOrkSynths.load;
