@@ -4,7 +4,7 @@ Pbindef(\p2).stop;
 Pbindef(\p3,
 	\instrument, ~mySynth,
     \degree, Pseq([\rest, 2, 3, 2], inf),
-    \dur, Pseq([Rest(0.5), 0.5, 0.5, 0.5], inf),
+    \dur, Pseq([Rest(0.5), 0.5, 0.5, 0.5], inf)/1,
     \amp, 0.5,
     \legato, 1
 ).play(~clock, quant: 1).quant = 1;
@@ -16,6 +16,7 @@ Pbindef(\p2).stop;
 Pbindef(\p3,
 	\instrument, ~mySynth,
     \degree, Pseq([\rest, 2, 3, 2], inf),
+	\octave, 4,
     \dur, Pseq([Rest(0.5), 0.5, 0.5, 0.5], inf),
     \amp, 0.5,
     \legato, 1

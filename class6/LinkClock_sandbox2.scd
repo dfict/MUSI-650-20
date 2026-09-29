@@ -74,7 +74,7 @@ p = Pbind(\instrument, \click, \freq, Pseq([900, Pn(400, 3)], inf)).play(~clock,
 
 // changing the tempo in another application should affect tempo in SC
 // changing the tempo in SC should affect every connected application
-~clock.tempo = 90/60;
+~clock.tempo = 1200/60;
 
 p.stop
 
