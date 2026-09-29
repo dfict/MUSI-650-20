@@ -18,6 +18,7 @@ Pbindef(\p1,
 	\instrument, ~mySynth,
     \degree, Pseq([0, 2, 0, 2, 0, 2], inf),
     \dur, Pseq([0.05, 0.95], inf),
+	\octave, 3,
     \amp, 0.5,
     \legato, 1
 ).play(~clock, quant: 1).quant = 1;

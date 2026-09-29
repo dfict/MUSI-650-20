@@ -14,7 +14,7 @@ Pbindef.clear;
 //~clock = TempoClock.new(2).permanent_(true); // if not using a shared clock
 ~mySynth = "bassWarsaw"; // choose a synth here
 ~clock = LinkClock(2).latency_(Server.default.latency);
-~clock.tempo_(10) //change tempo if you need it.
+~clock.tempo_(2) //change tempo if you need it.
 )
 //
 

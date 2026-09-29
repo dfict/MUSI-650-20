@@ -1,3 +1,12 @@
+//try this...
+
+(
+s.options.numOutputBusChannels = 36;  // match your interface
+s.options.numInputBusChannels = 36;   // optional, if you need inputs too
+// s.options.outDevice = "Your Interface Name";  // if it isn't the default device
+s.reboot;
+)
+
 {Mix.ar(SinOsc.ar([440,400,600,900,800])*0.1)}.play
 
 {SinOsc.ar([440,400,600,800,900])*0.1}.play
