@@ -115,14 +115,13 @@ Array.fill(10, "hello".postln)
 )
 
 (
-~n = 10;  // number of output channels
+~n = 10;
 {
-    var pos = LFNoise1.kr(0.1).range(0,~n);
-	  var pos = chan * 2 / ~n;                         // convert to PanAz units
+    var chan = LFNoise1.kr(0.1).range(0, ~n - 1);  // 0..9, in channel units
+    var pos = chan * 2 / ~n;                         // convert to PanAz units
     PanAz.ar(~n, WhiteNoise.ar(0.1), pos, orientation: 0);
 }.scope;
 )
-
 
 
 
@@ -196,3 +195,19 @@ Array.fill(10, "hello".postln)
 }.scope;
 )
 
+
+(
+~n = 10;       // output channels
+~voices = 1;   // how many resonators
+
+{
+    var sigs = Array.fill(~voices, {
+        Ringz.ar(Dust.ar(exprand(0.1, 2.4), 0.3), exprand(100, 7000), 2)
+    });
+    var pos = Array.fill(~voices, {
+        LFNoise1.kr(0.5).range(0, ~n - 1) * 2 / ~n   // channel units → PanAz units
+    });
+
+    PanAz.ar(~n, sigs, pos, orientation: 0).sum;
+}.play;
+)
