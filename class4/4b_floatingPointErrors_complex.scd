@@ -395,3 +395,25 @@ s.scope
     out=Median.ar(5,out,0.9);
     out=out*0.5;
 }.play;)
+
+
+//nodeProxy techniqye
+(SynthDef(\silence,
+	{
+	|rate = 2, max=0.125, amp=1|
+	var out, mod;
+		mod=LFNoise2.kr(rate!2).exprange(0.14, max);
+		out = 99999999*LeakDC.ar(SinOsc.ar(mod)+SinOsc.ar(mod,pi));
+	out=out*0.1*amp;
+	Out.ar(0, out);
+}).add;
+)
+
+
+a=(Synth(\silence));
+
+a.set(\amp, 0.1);
+
+a.set(\max, 40.4);
+a.set(\rate, 0.2);
+
