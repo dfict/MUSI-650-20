@@ -3,9 +3,9 @@
 
 (
 {
-	var n = 2;		// number of simultaneous events
+	var n = 10;		// number of simultaneous events
 
-	Mix.fill(n, {
+	Array.fill(n, {
 		var s, z, y, crowthought, cackle, car, carthought, travel;
 		var c = 1;
 		var a = 3;
@@ -47,7 +47,7 @@
 		s + (0.2 * y);
 
 	}) * 0.3; // scale down the mix to prevent clipping
-}.play;
+}.scope;
 )
 
 //run like hell
