@@ -66,7 +66,7 @@ s.waitForBoot {
 		// layer 3: enters late
 		Pseq([
 			~gap.(40),
-			  Ppar([~syn.(~droneA, 6),~syn.(~droneB, 4),~syn.(~droneC, 4)]), //use Ppar to group multiple layers at once
+			  Ppar([~syn.(~droneA, 6),~syn.(~droneB, 4),~syn.(~droneC, 2)]), //use Ppar to group multiple layers at once
 	])
 	]);
 
