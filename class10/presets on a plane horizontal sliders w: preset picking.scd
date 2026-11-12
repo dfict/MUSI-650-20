@@ -205,9 +205,10 @@ s.waitForBoot{
 		VLayout(
 			HLayout(xyslider, VLayout(*buttons)),
 			HLayout(
-				VLayout(*[\FBK1, \FREQ1, \LEVEL1, \CUTOFF1, \Q1,  \FBK2, \FREQ2, \LEVEL2, \CUTOFF2, \Q2]
-					.collect({ |n |
-					StaticText().string_(n).font_(Font("Osaka", 14)).maxHeight_(12)
+				VLayout(*
+					[\FBK1, \FREQ1, \LEVEL1, \CUTOFF1, \Q1,  \FBK2, \FREQ2, \LEVEL2, \CUTOFF2, \Q2]
+					.collect({ |n|
+					StaticText().string_(n).font_(Font("Osaka", 14)).maxHeight_(12).maxWidth_(70)
 				}) ),
 				[cvsliders.maxWidth_(1000).maxHeight_(260), width: 3])
 		);
